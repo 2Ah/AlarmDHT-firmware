@@ -1,0 +1,1409 @@
+
+ATMega328_2016-05-15_UART+DHT.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000020  00800100  00000840  000008d4  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         00000840  00000000  00000000  00000094  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .bss          00000012  00800120  00800120  000008f4  2**0
+                  ALLOC
+  3 .comment      00000030  00000000  00000000  000008f4  2**0
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000088  00000000  00000000  00000924  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   00000a73  00000000  00000000  000009ac  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 0000034c  00000000  00000000  0000141f  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   000003f5  00000000  00000000  0000176b  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  0000014c  00000000  00000000  00001b60  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    00000430  00000000  00000000  00001cac  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    0000069e  00000000  00000000  000020dc  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000130  00000000  00000000  0000277a  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	0c 94 34 00 	jmp	0x68	; 0x68 <__ctors_end>
+   4:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+   8:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+   c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  10:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  14:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  18:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  1c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  20:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  24:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  28:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  2c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  30:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  34:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  38:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  3c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  40:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  44:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  48:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  4c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  50:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  54:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  58:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  5c:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  60:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+  64:	0c 94 51 00 	jmp	0xa2	; 0xa2 <__bad_interrupt>
+
+00000068 <__ctors_end>:
+  68:	11 24       	eor	r1, r1
+  6a:	1f be       	out	0x3f, r1	; 63
+  6c:	cf ef       	ldi	r28, 0xFF	; 255
+  6e:	d8 e0       	ldi	r29, 0x08	; 8
+  70:	de bf       	out	0x3e, r29	; 62
+  72:	cd bf       	out	0x3d, r28	; 61
+
+00000074 <__do_copy_data>:
+  74:	11 e0       	ldi	r17, 0x01	; 1
+  76:	a0 e0       	ldi	r26, 0x00	; 0
+  78:	b1 e0       	ldi	r27, 0x01	; 1
+  7a:	e0 e4       	ldi	r30, 0x40	; 64
+  7c:	f8 e0       	ldi	r31, 0x08	; 8
+  7e:	02 c0       	rjmp	.+4      	; 0x84 <__do_copy_data+0x10>
+  80:	05 90       	lpm	r0, Z+
+  82:	0d 92       	st	X+, r0
+  84:	a0 32       	cpi	r26, 0x20	; 32
+  86:	b1 07       	cpc	r27, r17
+  88:	d9 f7       	brne	.-10     	; 0x80 <__do_copy_data+0xc>
+
+0000008a <__do_clear_bss>:
+  8a:	21 e0       	ldi	r18, 0x01	; 1
+  8c:	a0 e2       	ldi	r26, 0x20	; 32
+  8e:	b1 e0       	ldi	r27, 0x01	; 1
+  90:	01 c0       	rjmp	.+2      	; 0x94 <.do_clear_bss_start>
+
+00000092 <.do_clear_bss_loop>:
+  92:	1d 92       	st	X+, r1
+
+00000094 <.do_clear_bss_start>:
+  94:	a2 33       	cpi	r26, 0x32	; 50
+  96:	b2 07       	cpc	r27, r18
+  98:	e1 f7       	brne	.-8      	; 0x92 <.do_clear_bss_loop>
+  9a:	0e 94 a9 01 	call	0x352	; 0x352 <main>
+  9e:	0c 94 1e 04 	jmp	0x83c	; 0x83c <_exit>
+
+000000a2 <__bad_interrupt>:
+  a2:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
+
+000000a6 <_ZL7initDHTv>:
+	UDR0 = c;
+}
+
+inline void send_Uart_str( char* s)//	Отправка строки
+{
+	while (*s != 0) send_Uart(*s++);
+  a6:	52 9a       	sbi	0x0a, 2	; 10
+  a8:	5a 98       	cbi	0x0b, 2	; 11
+  aa:	2f e7       	ldi	r18, 0x7F	; 127
+	return UDR0;
+}
+
+inline void send_Uart(unsigned char c)//	Отправка байта
+{
+	while( !(UCSR0A&(1<<UDRE0)) )	 {} //	Устанавливается, когда регистр свободен
+  ac:	8d ee       	ldi	r24, 0xED	; 237
+  ae:	90 e0       	ldi	r25, 0x00	; 0
+	UDR0 = c;
+  b0:	21 50       	subi	r18, 0x01	; 1
+  b2:	80 40       	sbci	r24, 0x00	; 0
+	return UDR0;
+}
+
+inline void send_Uart(unsigned char c)//	Отправка байта
+{
+	while( !(UCSR0A&(1<<UDRE0)) )	 {} //	Устанавливается, когда регистр свободен
+  b4:	90 40       	sbci	r25, 0x00	; 0
+  b6:	e1 f7       	brne	.-8      	; 0xb0 <_ZL7initDHTv+0xa>
+  b8:	00 c0       	rjmp	.+0      	; 0xba <_ZL7initDHTv+0x14>
+	UDR0 = c;
+  ba:	00 00       	nop
+}
+
+inline void send_Uart_str( char* s)//	Отправка строки
+{
+	while (*s != 0) send_Uart(*s++);
+  bc:	f8 94       	cli
+  be:	52 98       	cbi	0x0a, 2	; 10
+  c0:	5a 9a       	sbi	0x0b, 2	; 11
+			i= i % pow10( dig) ;
+		}
+		*iStrCur=0;
+	}
+	send_Uart_str(iStr);
+} 
+  c2:	e5 e3       	ldi	r30, 0x35	; 53
+  c4:	ea 95       	dec	r30
+  c6:	f1 f7       	brne	.-4      	; 0xc4 <_ZL7initDHTv+0x1e>
+  c8:	00 00       	nop
+  ca:	81 e0       	ldi	r24, 0x01	; 1
+  cc:	4a 99       	sbic	0x09, 2	; 9
+  ce:	80 e0       	ldi	r24, 0x00	; 0
+  d0:	f5 e7       	ldi	r31, 0x75	; 117
+  d2:	fa 95       	dec	r31
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+  d4:	f1 f7       	brne	.-4      	; 0xd2 <_ZL7initDHTv+0x2c>
+  d6:	00 00       	nop
+	asm("cli");
+	_DDR_DHT_SET(0);	_PORT_DHT_SET(1);
+	_delay_us(10);
+	if (!_PIN_DHT_GET)  dhtErr = 1;
+	_delay_us(22);
+	if ( (_PIN_DHT_GET)&&(!dhtErr) )   dhtErr = 2;
+  d8:	4a 9b       	sbis	0x09, 2	; 9
+  da:	03 c0       	rjmp	.+6      	; 0xe2 <_ZL7initDHTv+0x3c>
+  dc:	88 23       	and	r24, r24
+  de:	81 f0       	breq	.+32     	; 0x100 <_ZL7initDHTv+0x5a>
+  e0:	2a c0       	rjmp	.+84     	; 0x136 <_ZL7initDHTv+0x90>
+  e2:	ef e5       	ldi	r30, 0x5F	; 95
+  e4:	f1 e0       	ldi	r31, 0x01	; 1
+  e6:	31 97       	sbiw	r30, 0x01	; 1
+  e8:	f1 f7       	brne	.-4      	; 0xe6 <_ZL7initDHTv+0x40>
+  ea:	00 c0       	rjmp	.+0      	; 0xec <_ZL7initDHTv+0x46>
+  ec:	00 00       	nop
+	_delay_us(88);
+	if ( (!_PIN_DHT_GET)&&(!dhtErr) )  dhtErr = 3;
+  ee:	4a 99       	sbic	0x09, 2	; 9
+  f0:	10 c0       	rjmp	.+32     	; 0x112 <_ZL7initDHTv+0x6c>
+  f2:	88 23       	and	r24, r24
+  f4:	b9 f0       	breq	.+46     	; 0x124 <_ZL7initDHTv+0x7e>
+  f6:	27 c0       	rjmp	.+78     	; 0x146 <_ZL7initDHTv+0xa0>
+	_delay_us(77);
+	if ( (_PIN_DHT_GET)&&(!dhtErr) )   dhtErr = 4; 
+  f8:	81 11       	cpse	r24, r1
+  fa:	2c c0       	rjmp	.+88     	; 0x154 <_ZL7initDHTv+0xae>
+  fc:	84 e0       	ldi	r24, 0x04	; 4
+  fe:	08 95       	ret
+ 100:	8f e5       	ldi	r24, 0x5F	; 95
+ 102:	91 e0       	ldi	r25, 0x01	; 1
+ 104:	01 97       	sbiw	r24, 0x01	; 1
+ 106:	f1 f7       	brne	.-4      	; 0x104 <_ZL7initDHTv+0x5e>
+ 108:	00 c0       	rjmp	.+0      	; 0x10a <_ZL7initDHTv+0x64>
+ 10a:	00 00       	nop
+	_delay_us(10);
+	if (!_PIN_DHT_GET)  dhtErr = 1;
+	_delay_us(22);
+	if ( (_PIN_DHT_GET)&&(!dhtErr) )   dhtErr = 2;
+	_delay_us(88);
+	if ( (!_PIN_DHT_GET)&&(!dhtErr) )  dhtErr = 3;
+ 10c:	89 b1       	in	r24, 0x09	; 9
+	asm("cli");
+	_DDR_DHT_SET(0);	_PORT_DHT_SET(1);
+	_delay_us(10);
+	if (!_PIN_DHT_GET)  dhtErr = 1;
+	_delay_us(22);
+	if ( (_PIN_DHT_GET)&&(!dhtErr) )   dhtErr = 2;
+ 10e:	82 e0       	ldi	r24, 0x02	; 2
+ 110:	1a c0       	rjmp	.+52     	; 0x146 <_ZL7initDHTv+0xa0>
+ 112:	e3 e3       	ldi	r30, 0x33	; 51
+ 114:	f1 e0       	ldi	r31, 0x01	; 1
+ 116:	31 97       	sbiw	r30, 0x01	; 1
+ 118:	f1 f7       	brne	.-4      	; 0x116 <_ZL7initDHTv+0x70>
+ 11a:	00 c0       	rjmp	.+0      	; 0x11c <_ZL7initDHTv+0x76>
+ 11c:	00 00       	nop
+	_delay_us(88);
+	if ( (!_PIN_DHT_GET)&&(!dhtErr) )  dhtErr = 3;
+	_delay_us(77);
+	if ( (_PIN_DHT_GET)&&(!dhtErr) )   dhtErr = 4; 
+ 11e:	4a 99       	sbic	0x09, 2	; 9
+ 120:	eb cf       	rjmp	.-42     	; 0xf8 <_ZL7initDHTv+0x52>
+ 122:	08 95       	ret
+ 124:	83 e3       	ldi	r24, 0x33	; 51
+ 126:	91 e0       	ldi	r25, 0x01	; 1
+ 128:	01 97       	sbiw	r24, 0x01	; 1
+ 12a:	f1 f7       	brne	.-4      	; 0x128 <_ZL7initDHTv+0x82>
+ 12c:	00 c0       	rjmp	.+0      	; 0x12e <_ZL7initDHTv+0x88>
+ 12e:	00 00       	nop
+ 130:	89 b1       	in	r24, 0x09	; 9
+	_delay_us(10);
+	if (!_PIN_DHT_GET)  dhtErr = 1;
+	_delay_us(22);
+	if ( (_PIN_DHT_GET)&&(!dhtErr) )   dhtErr = 2;
+	_delay_us(88);
+	if ( (!_PIN_DHT_GET)&&(!dhtErr) )  dhtErr = 3;
+ 132:	83 e0       	ldi	r24, 0x03	; 3
+ 134:	08 95       	ret
+ 136:	ef e5       	ldi	r30, 0x5F	; 95
+ 138:	f1 e0       	ldi	r31, 0x01	; 1
+ 13a:	31 97       	sbiw	r30, 0x01	; 1
+ 13c:	f1 f7       	brne	.-4      	; 0x13a <_ZL7initDHTv+0x94>
+ 13e:	00 c0       	rjmp	.+0      	; 0x140 <_ZL7initDHTv+0x9a>
+ 140:	00 00       	nop
+ 142:	99 b1       	in	r25, 0x09	; 9
+ 144:	e6 cf       	rjmp	.-52     	; 0x112 <_ZL7initDHTv+0x6c>
+ 146:	e3 e3       	ldi	r30, 0x33	; 51
+ 148:	f1 e0       	ldi	r31, 0x01	; 1
+ 14a:	31 97       	sbiw	r30, 0x01	; 1
+ 14c:	f1 f7       	brne	.-4      	; 0x14a <_ZL7initDHTv+0xa4>
+ 14e:	00 c0       	rjmp	.+0      	; 0x150 <_ZL7initDHTv+0xaa>
+ 150:	00 00       	nop
+	_delay_us(77);
+	if ( (_PIN_DHT_GET)&&(!dhtErr) )   dhtErr = 4; 
+ 152:	99 b1       	in	r25, 0x09	; 9
+	return  dhtErr;
+}
+ 154:	08 95       	ret
+
+00000156 <_Z12calibrateDHTv>:
+	if      (minLevel > dhtHighDuration)  minLevel= dhtHighDuration;
+	else if (maxLevel < dhtHighDuration)  maxLevel= dhtHighDuration;
+}
+
+unsigned char calibrateDHT() { // Для вычисления dhtSplitLevel. При успешной калибровке возвращает 1, иначе 0. 
+	if ( initDHT() )  {
+ 156:	0e 94 53 00 	call	0xa6	; 0xa6 <_ZL7initDHTv>
+ 15a:	88 23       	and	r24, r24
+ 15c:	19 f0       	breq	.+6      	; 0x164 <_Z12calibrateDHTv+0xe>
+		asm("sei");
+ 15e:	78 94       	sei
+		return 0;
+ 160:	80 e0       	ldi	r24, 0x00	; 0
+ 162:	08 95       	ret
+	if      (minLevel > dhtHighDuration)  minLevel= dhtHighDuration;
+	else if (maxLevel < dhtHighDuration)  maxLevel= dhtHighDuration;
+}
+
+unsigned char calibrateDHT() { // Для вычисления dhtSplitLevel. При успешной калибровке возвращает 1, иначе 0. 
+	if ( initDHT() )  {
+ 164:	98 e2       	ldi	r25, 0x28	; 40
+	if ( (_PIN_DHT_GET)&&(!dhtErr) )   dhtErr = 4; 
+	return  dhtErr;
+}
+
+static void DhtMinMaxCalc()  { // Определяет максимальные и минимальньные длительности высокого уровня от датчика. Они нужны для последующего расчета dhtSplitLevel.
+	dhtHighDuration= 0; // Если переменную создавать здесь, то показания неверные и в протеусе значение переменной не дебажится.
+ 166:	10 92 2b 01 	sts	0x012B, r1
+	while ( !_PIN_DHT_GET )    _delay_us(1);
+ 16a:	4a 99       	sbic	0x09, 2	; 9
+ 16c:	06 c0       	rjmp	.+12     	; 0x17a <_Z12calibrateDHTv+0x24>
+ 16e:	85 e0       	ldi	r24, 0x05	; 5
+ 170:	8a 95       	dec	r24
+ 172:	f1 f7       	brne	.-4      	; 0x170 <_Z12calibrateDHTv+0x1a>
+ 174:	00 00       	nop
+ 176:	4a 9b       	sbis	0x09, 2	; 9
+ 178:	fa cf       	rjmp	.-12     	; 0x16e <_Z12calibrateDHTv+0x18>
+	while (  _PIN_DHT_GET )  {
+ 17a:	4a 9b       	sbis	0x09, 2	; 9
+ 17c:	0b c0       	rjmp	.+22     	; 0x194 <_Z12calibrateDHTv+0x3e>
+ 17e:	85 e0       	ldi	r24, 0x05	; 5
+ 180:	8a 95       	dec	r24
+ 182:	f1 f7       	brne	.-4      	; 0x180 <_Z12calibrateDHTv+0x2a>
+ 184:	00 00       	nop
+		_delay_us(1);
+		dhtHighDuration++;
+ 186:	80 91 2b 01 	lds	r24, 0x012B
+ 18a:	8f 5f       	subi	r24, 0xFF	; 255
+ 18c:	80 93 2b 01 	sts	0x012B, r24
+}
+
+static void DhtMinMaxCalc()  { // Определяет максимальные и минимальньные длительности высокого уровня от датчика. Они нужны для последующего расчета dhtSplitLevel.
+	dhtHighDuration= 0; // Если переменную создавать здесь, то показания неверные и в протеусе значение переменной не дебажится.
+	while ( !_PIN_DHT_GET )    _delay_us(1);
+	while (  _PIN_DHT_GET )  {
+ 190:	4a 99       	sbic	0x09, 2	; 9
+ 192:	f5 cf       	rjmp	.-22     	; 0x17e <_Z12calibrateDHTv+0x28>
+		_delay_us(1);
+		dhtHighDuration++;
+	}
+	if      (minLevel > dhtHighDuration)  minLevel= dhtHighDuration;
+ 194:	80 91 2b 01 	lds	r24, 0x012B
+ 198:	20 91 2a 01 	lds	r18, 0x012A
+ 19c:	82 17       	cp	r24, r18
+ 19e:	18 f4       	brcc	.+6      	; 0x1a6 <_Z12calibrateDHTv+0x50>
+ 1a0:	80 93 2a 01 	sts	0x012A, r24
+ 1a4:	06 c0       	rjmp	.+12     	; 0x1b2 <_Z12calibrateDHTv+0x5c>
+	else if (maxLevel < dhtHighDuration)  maxLevel= dhtHighDuration;
+ 1a6:	20 91 29 01 	lds	r18, 0x0129
+ 1aa:	28 17       	cp	r18, r24
+ 1ac:	10 f4       	brcc	.+4      	; 0x1b2 <_Z12calibrateDHTv+0x5c>
+ 1ae:	80 93 29 01 	sts	0x0129, r24
+ 1b2:	91 50       	subi	r25, 0x01	; 1
+unsigned char calibrateDHT() { // Для вычисления dhtSplitLevel. При успешной калибровке возвращает 1, иначе 0. 
+	if ( initDHT() )  {
+		asm("sei");
+		return 0;
+	}
+	for ( char bit=0;  bit < 40;  bit++)   DhtMinMaxCalc();
+ 1b4:	c1 f6       	brne	.-80     	; 0x166 <_Z12calibrateDHTv+0x10>
+	asm("sei");
+ 1b6:	78 94       	sei
+	
+	dhtSplitLevel= (minLevel + maxLevel) / 2; // dhtSplitLevel - количество мкС, при удержании высокого уровня на пине данных датчика больше которых считаем, что датчик передает 1.
+ 1b8:	20 91 2a 01 	lds	r18, 0x012A
+ 1bc:	80 91 29 01 	lds	r24, 0x0129
+ 1c0:	90 e0       	ldi	r25, 0x00	; 0
+ 1c2:	82 0f       	add	r24, r18
+ 1c4:	91 1d       	adc	r25, r1
+ 1c6:	95 95       	asr	r25
+ 1c8:	87 95       	ror	r24
+ 1ca:	80 93 28 01 	sts	0x0128, r24
+	return 1;
+ 1ce:	81 e0       	ldi	r24, 0x01	; 1
+}
+ 1d0:	08 95       	ret
+
+000001d2 <_Z7readDHTv>:
+	checkSum= packDHT[4];
+}
+#endif
+//###############################################
+
+unsigned char readDHT() { // Возращает 1, если чтение датчика прошло успешно, иначе 0.   
+ 1d2:	cf 92       	push	r12
+ 1d4:	df 92       	push	r13
+ 1d6:	ef 92       	push	r14
+ 1d8:	ff 92       	push	r15
+ 1da:	cf 93       	push	r28
+ 1dc:	df 93       	push	r29
+	if ( initDHT() )  {
+ 1de:	0e 94 53 00 	call	0xa6	; 0xa6 <_ZL7initDHTv>
+ 1e2:	88 23       	and	r24, r24
+ 1e4:	19 f0       	breq	.+6      	; 0x1ec <_Z7readDHTv+0x1a>
+		asm("sei");
+ 1e6:	78 94       	sei
+		return 0;
+ 1e8:	80 e0       	ldi	r24, 0x00	; 0
+ 1ea:	9e c0       	rjmp	.+316    	; 0x328 <_Z7readDHTv+0x156>
+ 1ec:	ac e2       	ldi	r26, 0x2C	; 44
+ 1ee:	b1 e0       	ldi	r27, 0x01	; 1
+ 1f0:	21 e3       	ldi	r18, 0x31	; 49
+ 1f2:	31 e0       	ldi	r19, 0x01	; 1
+	}
+	for (unsigned char byte=0;  byte < 5;  byte++) {   // Начало считывания пакета данных от датчика.
+		packDHT[byte] = 0;
+ 1f4:	d8 e0       	ldi	r29, 0x08	; 8
+	while ( !_PIN_DHT_GET )    _delay_us(1);
+	while (  _PIN_DHT_GET )  {
+		_delay_us(1);
+		dhtHighDuration++;
+	}
+	if ( dhtHighDuration < dhtSplitLevel )	return 0;
+ 1f6:	c1 e0       	ldi	r28, 0x01	; 1
+ 1f8:	fd 01       	movw	r30, r26
+	if ( initDHT() )  {
+		asm("sei");
+		return 0;
+	}
+	for (unsigned char byte=0;  byte < 5;  byte++) {   // Начало считывания пакета данных от датчика.
+		packDHT[byte] = 0;
+ 1fa:	1c 92       	st	X, r1
+ 1fc:	5d 2f       	mov	r21, r29
+		for ( char bit=0;  bit < 8;  bit++)
+			packDHT[byte]= (packDHT[byte] << 1) | getDhtBit();
+ 1fe:	80 81       	ld	r24, Z
+ 200:	90 e0       	ldi	r25, 0x00	; 0
+ 202:	88 0f       	add	r24, r24
+ 204:	99 1f       	adc	r25, r25
+	dhtSplitLevel= (minLevel + maxLevel) / 2; // dhtSplitLevel - количество мкС, при удержании высокого уровня на пине данных датчика больше которых считаем, что датчик передает 1.
+	return 1;
+}
+
+static char getDhtBit() { // Возвращает бит данных в зависимости от длительности высокого уровня на пине данных датчика.
+	dhtHighDuration= 0; // Если переменную создавать здесь, то показания неверные и в протеусе значение переменной не дебажится.
+ 206:	10 92 2b 01 	sts	0x012B, r1
+	while ( !_PIN_DHT_GET )    _delay_us(1);
+ 20a:	4a 99       	sbic	0x09, 2	; 9
+ 20c:	06 c0       	rjmp	.+12     	; 0x21a <_Z7readDHTv+0x48>
+ 20e:	45 e0       	ldi	r20, 0x05	; 5
+ 210:	4a 95       	dec	r20
+ 212:	f1 f7       	brne	.-4      	; 0x210 <_Z7readDHTv+0x3e>
+ 214:	00 00       	nop
+ 216:	4a 9b       	sbis	0x09, 2	; 9
+ 218:	fa cf       	rjmp	.-12     	; 0x20e <_Z7readDHTv+0x3c>
+	while (  _PIN_DHT_GET )  {
+ 21a:	4a 9b       	sbis	0x09, 2	; 9
+ 21c:	0b c0       	rjmp	.+22     	; 0x234 <_Z7readDHTv+0x62>
+ 21e:	45 e0       	ldi	r20, 0x05	; 5
+ 220:	4a 95       	dec	r20
+ 222:	f1 f7       	brne	.-4      	; 0x220 <_Z7readDHTv+0x4e>
+ 224:	00 00       	nop
+		_delay_us(1);
+		dhtHighDuration++;
+ 226:	40 91 2b 01 	lds	r20, 0x012B
+ 22a:	4f 5f       	subi	r20, 0xFF	; 255
+ 22c:	40 93 2b 01 	sts	0x012B, r20
+}
+
+static char getDhtBit() { // Возвращает бит данных в зависимости от длительности высокого уровня на пине данных датчика.
+	dhtHighDuration= 0; // Если переменную создавать здесь, то показания неверные и в протеусе значение переменной не дебажится.
+	while ( !_PIN_DHT_GET )    _delay_us(1);
+	while (  _PIN_DHT_GET )  {
+ 230:	4a 99       	sbic	0x09, 2	; 9
+ 232:	f5 cf       	rjmp	.-22     	; 0x21e <_Z7readDHTv+0x4c>
+		_delay_us(1);
+		dhtHighDuration++;
+	}
+	if ( dhtHighDuration < dhtSplitLevel )	return 0;
+ 234:	4c 2f       	mov	r20, r28
+ 236:	70 91 2b 01 	lds	r23, 0x012B
+ 23a:	60 91 28 01 	lds	r22, 0x0128
+ 23e:	76 17       	cp	r23, r22
+ 240:	08 f4       	brcc	.+2      	; 0x244 <_Z7readDHTv+0x72>
+ 242:	40 e0       	ldi	r20, 0x00	; 0
+		return 0;
+	}
+	for (unsigned char byte=0;  byte < 5;  byte++) {   // Начало считывания пакета данных от датчика.
+		packDHT[byte] = 0;
+		for ( char bit=0;  bit < 8;  bit++)
+			packDHT[byte]= (packDHT[byte] << 1) | getDhtBit();
+ 244:	84 2b       	or	r24, r20
+ 246:	80 83       	st	Z, r24
+ 248:	51 50       	subi	r21, 0x01	; 1
+		asm("sei");
+		return 0;
+	}
+	for (unsigned char byte=0;  byte < 5;  byte++) {   // Начало считывания пакета данных от датчика.
+		packDHT[byte] = 0;
+		for ( char bit=0;  bit < 8;  bit++)
+ 24a:	c9 f6       	brne	.-78     	; 0x1fe <_Z7readDHTv+0x2c>
+ 24c:	11 96       	adiw	r26, 0x01	; 1
+unsigned char readDHT() { // Возращает 1, если чтение датчика прошло успешно, иначе 0.   
+	if ( initDHT() )  {
+		asm("sei");
+		return 0;
+	}
+	for (unsigned char byte=0;  byte < 5;  byte++) {   // Начало считывания пакета данных от датчика.
+ 24e:	a2 17       	cp	r26, r18
+ 250:	b3 07       	cpc	r27, r19
+ 252:	91 f6       	brne	.-92     	; 0x1f8 <_Z7readDHTv+0x26>
+		packDHT[byte] = 0;
+		for ( char bit=0;  bit < 8;  bit++)
+			packDHT[byte]= (packDHT[byte] << 1) | getDhtBit();
+	}
+	asm("sei");
+ 254:	78 94       	sei
+	checkSum= packDHT[4];
+}
+//###############################################
+#elif defined _DHT22
+static void calcResults() { // Получает из прочитанного пакета данных от датчика humidity, temperature, checkSum.
+	temperature= packDHT[3]*0.1 + (packDHT[2] & 0b01111111)*25.6;
+ 256:	c0 91 2e 01 	lds	r28, 0x012E
+ 25a:	60 91 2f 01 	lds	r22, 0x012F
+ 25e:	70 e0       	ldi	r23, 0x00	; 0
+ 260:	80 e0       	ldi	r24, 0x00	; 0
+ 262:	90 e0       	ldi	r25, 0x00	; 0
+ 264:	0e 94 fa 02 	call	0x5f4	; 0x5f4 <__floatsisf>
+ 268:	2d ec       	ldi	r18, 0xCD	; 205
+ 26a:	3c ec       	ldi	r19, 0xCC	; 204
+ 26c:	4c ec       	ldi	r20, 0xCC	; 204
+ 26e:	5d e3       	ldi	r21, 0x3D	; 61
+ 270:	0e 94 86 03 	call	0x70c	; 0x70c <__mulsf3>
+ 274:	6b 01       	movw	r12, r22
+ 276:	7c 01       	movw	r14, r24
+ 278:	6c 2f       	mov	r22, r28
+ 27a:	6f 77       	andi	r22, 0x7F	; 127
+ 27c:	70 e0       	ldi	r23, 0x00	; 0
+ 27e:	80 e0       	ldi	r24, 0x00	; 0
+ 280:	90 e0       	ldi	r25, 0x00	; 0
+ 282:	0e 94 fa 02 	call	0x5f4	; 0x5f4 <__floatsisf>
+ 286:	2d ec       	ldi	r18, 0xCD	; 205
+ 288:	3c ec       	ldi	r19, 0xCC	; 204
+ 28a:	4c ec       	ldi	r20, 0xCC	; 204
+ 28c:	51 e4       	ldi	r21, 0x41	; 65
+ 28e:	0e 94 86 03 	call	0x70c	; 0x70c <__mulsf3>
+ 292:	9b 01       	movw	r18, r22
+ 294:	ac 01       	movw	r20, r24
+ 296:	c7 01       	movw	r24, r14
+ 298:	b6 01       	movw	r22, r12
+ 29a:	0e 94 63 02 	call	0x4c6	; 0x4c6 <__addsf3>
+	if (packDHT[2] & 0b10000000)  temperature*= -1;
+ 29e:	cc 23       	and	r28, r28
+ 2a0:	4c f0       	brlt	.+18     	; 0x2b4 <_Z7readDHTv+0xe2>
+	checkSum= packDHT[4];
+}
+//###############################################
+#elif defined _DHT22
+static void calcResults() { // Получает из прочитанного пакета данных от датчика humidity, temperature, checkSum.
+	temperature= packDHT[3]*0.1 + (packDHT[2] & 0b01111111)*25.6;
+ 2a2:	60 93 24 01 	sts	0x0124, r22
+ 2a6:	70 93 25 01 	sts	0x0125, r23
+ 2aa:	80 93 26 01 	sts	0x0126, r24
+ 2ae:	90 93 27 01 	sts	0x0127, r25
+ 2b2:	0b c0       	rjmp	.+22     	; 0x2ca <_Z7readDHTv+0xf8>
+	if (packDHT[2] & 0b10000000)  temperature*= -1;
+ 2b4:	dc 01       	movw	r26, r24
+ 2b6:	cb 01       	movw	r24, r22
+ 2b8:	b0 58       	subi	r27, 0x80	; 128
+ 2ba:	80 93 24 01 	sts	0x0124, r24
+ 2be:	90 93 25 01 	sts	0x0125, r25
+ 2c2:	a0 93 26 01 	sts	0x0126, r26
+ 2c6:	b0 93 27 01 	sts	0x0127, r27
+	humidity=  packDHT[1]*0.1 + packDHT[0]*25.6;
+ 2ca:	60 91 2d 01 	lds	r22, 0x012D
+ 2ce:	70 e0       	ldi	r23, 0x00	; 0
+ 2d0:	80 e0       	ldi	r24, 0x00	; 0
+ 2d2:	90 e0       	ldi	r25, 0x00	; 0
+ 2d4:	0e 94 fa 02 	call	0x5f4	; 0x5f4 <__floatsisf>
+ 2d8:	2d ec       	ldi	r18, 0xCD	; 205
+ 2da:	3c ec       	ldi	r19, 0xCC	; 204
+ 2dc:	4c ec       	ldi	r20, 0xCC	; 204
+ 2de:	5d e3       	ldi	r21, 0x3D	; 61
+ 2e0:	0e 94 86 03 	call	0x70c	; 0x70c <__mulsf3>
+ 2e4:	6b 01       	movw	r12, r22
+ 2e6:	7c 01       	movw	r14, r24
+ 2e8:	60 91 2c 01 	lds	r22, 0x012C
+ 2ec:	70 e0       	ldi	r23, 0x00	; 0
+ 2ee:	80 e0       	ldi	r24, 0x00	; 0
+ 2f0:	90 e0       	ldi	r25, 0x00	; 0
+ 2f2:	0e 94 fa 02 	call	0x5f4	; 0x5f4 <__floatsisf>
+ 2f6:	2d ec       	ldi	r18, 0xCD	; 205
+ 2f8:	3c ec       	ldi	r19, 0xCC	; 204
+ 2fa:	4c ec       	ldi	r20, 0xCC	; 204
+ 2fc:	51 e4       	ldi	r21, 0x41	; 65
+ 2fe:	0e 94 86 03 	call	0x70c	; 0x70c <__mulsf3>
+ 302:	9b 01       	movw	r18, r22
+ 304:	ac 01       	movw	r20, r24
+ 306:	c7 01       	movw	r24, r14
+ 308:	b6 01       	movw	r22, r12
+ 30a:	0e 94 63 02 	call	0x4c6	; 0x4c6 <__addsf3>
+ 30e:	60 93 20 01 	sts	0x0120, r22
+ 312:	70 93 21 01 	sts	0x0121, r23
+ 316:	80 93 22 01 	sts	0x0122, r24
+ 31a:	90 93 23 01 	sts	0x0123, r25
+	checkSum= packDHT[4];
+ 31e:	80 91 30 01 	lds	r24, 0x0130
+ 322:	80 93 31 01 	sts	0x0131, r24
+			packDHT[byte]= (packDHT[byte] << 1) | getDhtBit();
+	}
+	asm("sei");
+	
+	calcResults();
+	return 1;
+ 326:	81 e0       	ldi	r24, 0x01	; 1
+}
+ 328:	df 91       	pop	r29
+ 32a:	cf 91       	pop	r28
+ 32c:	ff 90       	pop	r15
+ 32e:	ef 90       	pop	r14
+ 330:	df 90       	pop	r13
+ 332:	cf 90       	pop	r12
+ 334:	08 95       	ret
+
+00000336 <_Z9init_UARTv>:
+{   
+	// USART Communication Parameters: 8 Data, 1 Stop, No Parity
+	// USART Receiver: On
+	// USART Transmitter: On
+	// USART0 Mode: Asynchronous
+	UCSR0A=(0<<RXC0) | (0<<TXC0) | (0<<UDRE0) | (0<<FE0) | (0<<DOR0) | (0<<UPE0) | (0<<U2X0) | (0<<MPCM0);
+ 336:	10 92 c0 00 	sts	0x00C0, r1
+	UCSR0B=(0<<RXCIE0) | (0<<TXCIE0) | (0<<UDRIE0) | (1<<RXEN0) | (1<<TXEN0) | (0<<UCSZ02) | (0<<RXB80) | (0<<TXB80);
+ 33a:	88 e1       	ldi	r24, 0x18	; 24
+ 33c:	80 93 c1 00 	sts	0x00C1, r24
+	UCSR0C=(0<<UMSEL01) | (0<<UMSEL00) | (0<<UPM01) | (0<<UPM00) | (0<<USBS0) | (1<<UCSZ01) | (1<<UCSZ00) | (0<<UCPOL0);
+ 340:	86 e0       	ldi	r24, 0x06	; 6
+ 342:	80 93 c2 00 	sts	0x00C2, r24
+	//UBRR0H=0x00;	UBRR0L=0x33; // При 8Mhz USART Baud Rate: 9600
+	UBRR0H=0x00;	UBRR0L=0x19; // При 16Mhz USART Baud Rate: 38400	
+ 346:	10 92 c5 00 	sts	0x00C5, r1
+ 34a:	89 e1       	ldi	r24, 0x19	; 25
+ 34c:	80 93 c4 00 	sts	0x00C4, r24
+ 350:	08 95       	ret
+
+00000352 <main>:
+#include "DHT11-22.h"
+#include "UART_ATMEGA328.h"
+
+#define _PORT_LED_POWER(x)  ( ((x)==0) ? (PORTD&= ~0b00010000) : (PORTD|= 0b00010000) ) /* Светодиод питания. При отсутствии DHT датчика - мигаем.*/  
+
+int main() {  
+ 352:	cf 93       	push	r28
+ 354:	df 93       	push	r29
+ 356:	00 d0       	rcall	.+0      	; 0x358 <main+0x6>
+ 358:	00 d0       	rcall	.+0      	; 0x35a <main+0x8>
+ 35a:	00 d0       	rcall	.+0      	; 0x35c <main+0xa>
+ 35c:	cd b7       	in	r28, 0x3d	; 61
+ 35e:	de b7       	in	r29, 0x3e	; 62
+	char st[6];  
+	DDRB=  0b00000000;  
+ 360:	14 b8       	out	0x04, r1	; 4
+	PORTB= 0b11111111;
+ 362:	8f ef       	ldi	r24, 0xFF	; 255
+ 364:	85 b9       	out	0x05, r24	; 5
+	DDRC=  0b00000000;  
+ 366:	17 b8       	out	0x07, r1	; 7
+	PORTC= 0b11111111;
+ 368:	88 b9       	out	0x08, r24	; 8
+	DDRD=  0b00010000;  //DHT22 + LED_POWER 
+ 36a:	80 e1       	ldi	r24, 0x10	; 16
+ 36c:	8a b9       	out	0x0a, r24	; 10
+	PORTD= 0b11101111;
+ 36e:	8f ee       	ldi	r24, 0xEF	; 239
+ 370:	8b b9       	out	0x0b, r24	; 11
+	_PORT_LED_POWER(1);
+ 372:	5c 9a       	sbi	0x0b, 4	; 11
+	init_UART();
+ 374:	0e 94 9b 01 	call	0x336	; 0x336 <_Z9init_UARTv>
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 378:	2f e7       	ldi	r18, 0x7F	; 127
+ 37a:	87 ec       	ldi	r24, 0xC7	; 199
+ 37c:	90 e3       	ldi	r25, 0x30	; 48
+ 37e:	21 50       	subi	r18, 0x01	; 1
+ 380:	80 40       	sbci	r24, 0x00	; 0
+ 382:	90 40       	sbci	r25, 0x00	; 0
+ 384:	e1 f7       	brne	.-8      	; 0x37e <main+0x2c>
+ 386:	00 c0       	rjmp	.+0      	; 0x388 <main+0x36>
+ 388:	00 00       	nop
+	_delay_ms(999); 
+	calibrateDHT();
+ 38a:	0e 94 ab 00 	call	0x156	; 0x156 <_Z12calibrateDHTv>
+ 38e:	0f 2e       	mov	r0, r31
+ 390:	f4 e1       	ldi	r31, 0x14	; 20
+ 392:	af 2e       	mov	r10, r31
+ 394:	f1 e0       	ldi	r31, 0x01	; 1
+ 396:	bf 2e       	mov	r11, r31
+ 398:	f0 2d       	mov	r31, r0
+	UDR0 = c;
+}
+
+inline void send_Uart_str( char* s)//	Отправка строки
+{
+	while (*s != 0) send_Uart(*s++);
+ 39a:	0f 2e       	mov	r0, r31
+ 39c:	fd e0       	ldi	r31, 0x0D	; 13
+ 39e:	9f 2e       	mov	r9, r31
+ 3a0:	f0 2d       	mov	r31, r0
+	return UDR0;
+}
+
+inline void send_Uart(unsigned char c)//	Отправка байта
+{
+	while( !(UCSR0A&(1<<UDRE0)) )	 {} //	Устанавливается, когда регистр свободен
+ 3a2:	00 ec       	ldi	r16, 0xC0	; 192
+ 3a4:	10 e0       	ldi	r17, 0x00	; 0
+	UDR0 = c;
+ 3a6:	0f 2e       	mov	r0, r31
+ 3a8:	f6 ec       	ldi	r31, 0xC6	; 198
+ 3aa:	ef 2e       	mov	r14, r31
+ 3ac:	f1 2c       	mov	r15, r1
+ 3ae:	f0 2d       	mov	r31, r0
+ 3b0:	0f 2e       	mov	r0, r31
+ 3b2:	fd e1       	ldi	r31, 0x1D	; 29
+ 3b4:	cf 2e       	mov	r12, r31
+ 3b6:	f1 e0       	ldi	r31, 0x01	; 1
+ 3b8:	df 2e       	mov	r13, r31
+ 3ba:	f0 2d       	mov	r31, r0
+ 3bc:	0f 2e       	mov	r0, r31
+ 3be:	f8 e0       	ldi	r31, 0x08	; 8
+ 3c0:	6f 2e       	mov	r6, r31
+ 3c2:	f1 e0       	ldi	r31, 0x01	; 1
+ 3c4:	7f 2e       	mov	r7, r31
+ 3c6:	f0 2d       	mov	r31, r0
+ 3c8:	af e7       	ldi	r26, 0x7F	; 127
+ 3ca:	b7 ec       	ldi	r27, 0xC7	; 199
+ 3cc:	20 e3       	ldi	r18, 0x30	; 48
+ 3ce:	a1 50       	subi	r26, 0x01	; 1
+ 3d0:	b0 40       	sbci	r27, 0x00	; 0
+ 3d2:	20 40       	sbci	r18, 0x00	; 0
+ 3d4:	e1 f7       	brne	.-8      	; 0x3ce <main+0x7c>
+ 3d6:	00 c0       	rjmp	.+0      	; 0x3d8 <main+0x86>
+ 3d8:	00 00       	nop
+	itoa( getDhtSplitLevel(), st, 10);
+	send_Uart_str(" split=");   send_Uart_str(st); //*/
+	while(1)  {
+		_delay_ms(999);  
+		
+		if ( !readDHT() )  { // При отсутствии DHT датчика - мигаем.
+ 3da:	0e 94 e9 00 	call	0x1d2	; 0x1d2 <_Z7readDHTv>
+ 3de:	81 11       	cpse	r24, r1
+ 3e0:	17 c0       	rjmp	.+46     	; 0x410 <main+0xbe>
+			_PORT_LED_POWER(0);
+ 3e2:	5c 98       	cbi	0x0b, 4	; 11
+ 3e4:	8f e7       	ldi	r24, 0x7F	; 127
+ 3e6:	97 ec       	ldi	r25, 0xC7	; 199
+ 3e8:	a0 e3       	ldi	r26, 0x30	; 48
+ 3ea:	81 50       	subi	r24, 0x01	; 1
+ 3ec:	90 40       	sbci	r25, 0x00	; 0
+ 3ee:	a0 40       	sbci	r26, 0x00	; 0
+ 3f0:	e1 f7       	brne	.-8      	; 0x3ea <main+0x98>
+ 3f2:	00 c0       	rjmp	.+0      	; 0x3f4 <main+0xa2>
+ 3f4:	00 00       	nop
+			_delay_ms(999);
+			_PORT_LED_POWER(1); 
+ 3f6:	5c 9a       	sbi	0x0b, 4	; 11
+ 3f8:	f3 01       	movw	r30, r6
+}
+
+inline void send_Uart_str( char* s)//	Отправка строки
+{
+	while (*s != 0) send_Uart(*s++);
+ 3fa:	99 2d       	mov	r25, r9
+	return UDR0;
+}
+
+inline void send_Uart(unsigned char c)//	Отправка байта
+{
+	while( !(UCSR0A&(1<<UDRE0)) )	 {} //	Устанавливается, когда регистр свободен
+ 3fc:	d8 01       	movw	r26, r16
+ 3fe:	8c 91       	ld	r24, X
+ 400:	85 ff       	sbrs	r24, 5
+ 402:	fc cf       	rjmp	.-8      	; 0x3fc <main+0xaa>
+	UDR0 = c;
+ 404:	d7 01       	movw	r26, r14
+ 406:	9c 93       	st	X, r25
+}
+
+inline void send_Uart_str( char* s)//	Отправка строки
+{
+	while (*s != 0) send_Uart(*s++);
+ 408:	91 91       	ld	r25, Z+
+ 40a:	91 11       	cpse	r25, r1
+ 40c:	f7 cf       	rjmp	.-18     	; 0x3fc <main+0xaa>
+ 40e:	dc cf       	rjmp	.-72     	; 0x3c8 <main+0x76>
+			send_Uart_str("\r\nDHT ERROR"); 
+			continue;
+		}
+ 
+		itoa( getTemp(), st, 10); // Запись в переменную st целой части значения температуры.
+ 410:	60 91 24 01 	lds	r22, 0x0124
+ 414:	70 91 25 01 	lds	r23, 0x0125
+ 418:	80 91 26 01 	lds	r24, 0x0126
+ 41c:	90 91 27 01 	lds	r25, 0x0127
+ 420:	0e 94 c7 02 	call	0x58e	; 0x58e <__fixsfsi>
+ 424:	dc 01       	movw	r26, r24
+ 426:	cb 01       	movw	r24, r22
+    } else if (__radix < 2 || __radix > 36) {
+	*__s = 0;
+	return __s;
+    } else {
+	extern char *__itoa_ncheck (int, char *, unsigned char);
+	return __itoa_ncheck (__val, __s, __radix);
+ 428:	4a e0       	ldi	r20, 0x0A	; 10
+ 42a:	be 01       	movw	r22, r28
+ 42c:	6f 5f       	subi	r22, 0xFF	; 255
+ 42e:	7f 4f       	sbci	r23, 0xFF	; 255
+ 430:	0e 94 e9 03 	call	0x7d2	; 0x7d2 <__itoa_ncheck>
+ 434:	f5 01       	movw	r30, r10
+ 436:	99 2d       	mov	r25, r9
+	return UDR0;
+}
+
+inline void send_Uart(unsigned char c)//	Отправка байта
+{
+	while( !(UCSR0A&(1<<UDRE0)) )	 {} //	Устанавливается, когда регистр свободен
+ 438:	d8 01       	movw	r26, r16
+ 43a:	8c 91       	ld	r24, X
+ 43c:	85 ff       	sbrs	r24, 5
+ 43e:	fc cf       	rjmp	.-8      	; 0x438 <main+0xe6>
+	UDR0 = c;
+ 440:	d7 01       	movw	r26, r14
+ 442:	9c 93       	st	X, r25
+}
+
+inline void send_Uart_str( char* s)//	Отправка строки
+{
+	while (*s != 0) send_Uart(*s++);
+ 444:	91 91       	ld	r25, Z+
+ 446:	91 11       	cpse	r25, r1
+ 448:	f7 cf       	rjmp	.-18     	; 0x438 <main+0xe6>
+ 44a:	99 81       	ldd	r25, Y+1	; 0x01
+ 44c:	99 23       	and	r25, r25
+ 44e:	29 f1       	breq	.+74     	; 0x49a <main+0x148>
+ 450:	fe 01       	movw	r30, r28
+ 452:	32 96       	adiw	r30, 0x02	; 2
+	return UDR0;
+}
+
+inline void send_Uart(unsigned char c)//	Отправка байта
+{
+	while( !(UCSR0A&(1<<UDRE0)) )	 {} //	Устанавливается, когда регистр свободен
+ 454:	d8 01       	movw	r26, r16
+ 456:	8c 91       	ld	r24, X
+ 458:	85 ff       	sbrs	r24, 5
+ 45a:	fc cf       	rjmp	.-8      	; 0x454 <main+0x102>
+	UDR0 = c;
+ 45c:	d7 01       	movw	r26, r14
+ 45e:	9c 93       	st	X, r25
+}
+
+inline void send_Uart_str( char* s)//	Отправка строки
+{
+	while (*s != 0) send_Uart(*s++);
+ 460:	91 91       	ld	r25, Z+
+ 462:	91 11       	cpse	r25, r1
+ 464:	f7 cf       	rjmp	.-18     	; 0x454 <main+0x102>
+ 466:	19 c0       	rjmp	.+50     	; 0x49a <main+0x148>
+	return UDR0;
+}
+
+inline void send_Uart(unsigned char c)//	Отправка байта
+{
+	while( !(UCSR0A&(1<<UDRE0)) )	 {} //	Устанавливается, когда регистр свободен
+ 468:	d8 01       	movw	r26, r16
+ 46a:	8c 91       	ld	r24, X
+ 46c:	85 ff       	sbrs	r24, 5
+ 46e:	fc cf       	rjmp	.-8      	; 0x468 <main+0x116>
+	UDR0 = c;
+ 470:	d7 01       	movw	r26, r14
+ 472:	9c 93       	st	X, r25
+}
+
+inline void send_Uart_str( char* s)//	Отправка строки
+{
+	while (*s != 0) send_Uart(*s++);
+ 474:	91 91       	ld	r25, Z+
+ 476:	91 11       	cpse	r25, r1
+ 478:	f7 cf       	rjmp	.-18     	; 0x468 <main+0x116>
+ 47a:	99 81       	ldd	r25, Y+1	; 0x01
+ 47c:	99 23       	and	r25, r25
+ 47e:	09 f4       	brne	.+2      	; 0x482 <main+0x130>
+ 480:	a3 cf       	rjmp	.-186    	; 0x3c8 <main+0x76>
+ 482:	fe 01       	movw	r30, r28
+ 484:	32 96       	adiw	r30, 0x02	; 2
+	return UDR0;
+}
+
+inline void send_Uart(unsigned char c)//	Отправка байта
+{
+	while( !(UCSR0A&(1<<UDRE0)) )	 {} //	Устанавливается, когда регистр свободен
+ 486:	d8 01       	movw	r26, r16
+ 488:	8c 91       	ld	r24, X
+ 48a:	85 ff       	sbrs	r24, 5
+ 48c:	fc cf       	rjmp	.-8      	; 0x486 <main+0x134>
+	UDR0 = c;
+ 48e:	d7 01       	movw	r26, r14
+ 490:	9c 93       	st	X, r25
+}
+
+inline void send_Uart_str( char* s)//	Отправка строки
+{
+	while (*s != 0) send_Uart(*s++);
+ 492:	91 91       	ld	r25, Z+
+ 494:	91 11       	cpse	r25, r1
+ 496:	f7 cf       	rjmp	.-18     	; 0x486 <main+0x134>
+ 498:	97 cf       	rjmp	.-210    	; 0x3c8 <main+0x76>
+		send_Uart_str("\r\nDHT T=");   send_Uart_str(st);
+		
+		itoa( getHum(), st, 10); // Запись в переменную st целой части значения влажности.
+ 49a:	60 91 20 01 	lds	r22, 0x0120
+ 49e:	70 91 21 01 	lds	r23, 0x0121
+ 4a2:	80 91 22 01 	lds	r24, 0x0122
+ 4a6:	90 91 23 01 	lds	r25, 0x0123
+ 4aa:	0e 94 c7 02 	call	0x58e	; 0x58e <__fixsfsi>
+ 4ae:	dc 01       	movw	r26, r24
+ 4b0:	cb 01       	movw	r24, r22
+ 4b2:	4a e0       	ldi	r20, 0x0A	; 10
+ 4b4:	be 01       	movw	r22, r28
+ 4b6:	6f 5f       	subi	r22, 0xFF	; 255
+ 4b8:	7f 4f       	sbci	r23, 0xFF	; 255
+ 4ba:	0e 94 e9 03 	call	0x7d2	; 0x7d2 <__itoa_ncheck>
+ 4be:	f6 01       	movw	r30, r12
+ 4c0:	90 e2       	ldi	r25, 0x20	; 32
+ 4c2:	d2 cf       	rjmp	.-92     	; 0x468 <main+0x116>
+
+000004c4 <__subsf3>:
+ 4c4:	50 58       	subi	r21, 0x80	; 128
+
+000004c6 <__addsf3>:
+ 4c6:	bb 27       	eor	r27, r27
+ 4c8:	aa 27       	eor	r26, r26
+ 4ca:	0e d0       	rcall	.+28     	; 0x4e8 <__addsf3x>
+ 4cc:	e5 c0       	rjmp	.+458    	; 0x698 <__fp_round>
+ 4ce:	d6 d0       	rcall	.+428    	; 0x67c <__fp_pscA>
+ 4d0:	30 f0       	brcs	.+12     	; 0x4de <__addsf3+0x18>
+ 4d2:	db d0       	rcall	.+438    	; 0x68a <__fp_pscB>
+ 4d4:	20 f0       	brcs	.+8      	; 0x4de <__addsf3+0x18>
+ 4d6:	31 f4       	brne	.+12     	; 0x4e4 <__addsf3+0x1e>
+ 4d8:	9f 3f       	cpi	r25, 0xFF	; 255
+ 4da:	11 f4       	brne	.+4      	; 0x4e0 <__addsf3+0x1a>
+ 4dc:	1e f4       	brtc	.+6      	; 0x4e4 <__addsf3+0x1e>
+ 4de:	cb c0       	rjmp	.+406    	; 0x676 <__fp_nan>
+ 4e0:	0e f4       	brtc	.+2      	; 0x4e4 <__addsf3+0x1e>
+ 4e2:	e0 95       	com	r30
+ 4e4:	e7 fb       	bst	r30, 7
+ 4e6:	c1 c0       	rjmp	.+386    	; 0x66a <__fp_inf>
+
+000004e8 <__addsf3x>:
+ 4e8:	e9 2f       	mov	r30, r25
+ 4ea:	e7 d0       	rcall	.+462    	; 0x6ba <__fp_split3>
+ 4ec:	80 f3       	brcs	.-32     	; 0x4ce <__addsf3+0x8>
+ 4ee:	ba 17       	cp	r27, r26
+ 4f0:	62 07       	cpc	r22, r18
+ 4f2:	73 07       	cpc	r23, r19
+ 4f4:	84 07       	cpc	r24, r20
+ 4f6:	95 07       	cpc	r25, r21
+ 4f8:	18 f0       	brcs	.+6      	; 0x500 <__addsf3x+0x18>
+ 4fa:	71 f4       	brne	.+28     	; 0x518 <__addsf3x+0x30>
+ 4fc:	9e f5       	brtc	.+102    	; 0x564 <__addsf3x+0x7c>
+ 4fe:	ff c0       	rjmp	.+510    	; 0x6fe <__fp_zero>
+ 500:	0e f4       	brtc	.+2      	; 0x504 <__addsf3x+0x1c>
+ 502:	e0 95       	com	r30
+ 504:	0b 2e       	mov	r0, r27
+ 506:	ba 2f       	mov	r27, r26
+ 508:	a0 2d       	mov	r26, r0
+ 50a:	0b 01       	movw	r0, r22
+ 50c:	b9 01       	movw	r22, r18
+ 50e:	90 01       	movw	r18, r0
+ 510:	0c 01       	movw	r0, r24
+ 512:	ca 01       	movw	r24, r20
+ 514:	a0 01       	movw	r20, r0
+ 516:	11 24       	eor	r1, r1
+ 518:	ff 27       	eor	r31, r31
+ 51a:	59 1b       	sub	r21, r25
+ 51c:	99 f0       	breq	.+38     	; 0x544 <__addsf3x+0x5c>
+ 51e:	59 3f       	cpi	r21, 0xF9	; 249
+ 520:	50 f4       	brcc	.+20     	; 0x536 <__addsf3x+0x4e>
+ 522:	50 3e       	cpi	r21, 0xE0	; 224
+ 524:	68 f1       	brcs	.+90     	; 0x580 <__addsf3x+0x98>
+ 526:	1a 16       	cp	r1, r26
+ 528:	f0 40       	sbci	r31, 0x00	; 0
+ 52a:	a2 2f       	mov	r26, r18
+ 52c:	23 2f       	mov	r18, r19
+ 52e:	34 2f       	mov	r19, r20
+ 530:	44 27       	eor	r20, r20
+ 532:	58 5f       	subi	r21, 0xF8	; 248
+ 534:	f3 cf       	rjmp	.-26     	; 0x51c <__addsf3x+0x34>
+ 536:	46 95       	lsr	r20
+ 538:	37 95       	ror	r19
+ 53a:	27 95       	ror	r18
+ 53c:	a7 95       	ror	r26
+ 53e:	f0 40       	sbci	r31, 0x00	; 0
+ 540:	53 95       	inc	r21
+ 542:	c9 f7       	brne	.-14     	; 0x536 <__addsf3x+0x4e>
+ 544:	7e f4       	brtc	.+30     	; 0x564 <__addsf3x+0x7c>
+ 546:	1f 16       	cp	r1, r31
+ 548:	ba 0b       	sbc	r27, r26
+ 54a:	62 0b       	sbc	r22, r18
+ 54c:	73 0b       	sbc	r23, r19
+ 54e:	84 0b       	sbc	r24, r20
+ 550:	ba f0       	brmi	.+46     	; 0x580 <__addsf3x+0x98>
+ 552:	91 50       	subi	r25, 0x01	; 1
+ 554:	a1 f0       	breq	.+40     	; 0x57e <__addsf3x+0x96>
+ 556:	ff 0f       	add	r31, r31
+ 558:	bb 1f       	adc	r27, r27
+ 55a:	66 1f       	adc	r22, r22
+ 55c:	77 1f       	adc	r23, r23
+ 55e:	88 1f       	adc	r24, r24
+ 560:	c2 f7       	brpl	.-16     	; 0x552 <__addsf3x+0x6a>
+ 562:	0e c0       	rjmp	.+28     	; 0x580 <__addsf3x+0x98>
+ 564:	ba 0f       	add	r27, r26
+ 566:	62 1f       	adc	r22, r18
+ 568:	73 1f       	adc	r23, r19
+ 56a:	84 1f       	adc	r24, r20
+ 56c:	48 f4       	brcc	.+18     	; 0x580 <__addsf3x+0x98>
+ 56e:	87 95       	ror	r24
+ 570:	77 95       	ror	r23
+ 572:	67 95       	ror	r22
+ 574:	b7 95       	ror	r27
+ 576:	f7 95       	ror	r31
+ 578:	9e 3f       	cpi	r25, 0xFE	; 254
+ 57a:	08 f0       	brcs	.+2      	; 0x57e <__addsf3x+0x96>
+ 57c:	b3 cf       	rjmp	.-154    	; 0x4e4 <__addsf3+0x1e>
+ 57e:	93 95       	inc	r25
+ 580:	88 0f       	add	r24, r24
+ 582:	08 f0       	brcs	.+2      	; 0x586 <__addsf3x+0x9e>
+ 584:	99 27       	eor	r25, r25
+ 586:	ee 0f       	add	r30, r30
+ 588:	97 95       	ror	r25
+ 58a:	87 95       	ror	r24
+ 58c:	08 95       	ret
+
+0000058e <__fixsfsi>:
+ 58e:	04 d0       	rcall	.+8      	; 0x598 <__fixunssfsi>
+ 590:	68 94       	set
+ 592:	b1 11       	cpse	r27, r1
+ 594:	b5 c0       	rjmp	.+362    	; 0x700 <__fp_szero>
+ 596:	08 95       	ret
+
+00000598 <__fixunssfsi>:
+ 598:	98 d0       	rcall	.+304    	; 0x6ca <__fp_splitA>
+ 59a:	88 f0       	brcs	.+34     	; 0x5be <__fixunssfsi+0x26>
+ 59c:	9f 57       	subi	r25, 0x7F	; 127
+ 59e:	90 f0       	brcs	.+36     	; 0x5c4 <__fixunssfsi+0x2c>
+ 5a0:	b9 2f       	mov	r27, r25
+ 5a2:	99 27       	eor	r25, r25
+ 5a4:	b7 51       	subi	r27, 0x17	; 23
+ 5a6:	a0 f0       	brcs	.+40     	; 0x5d0 <__fixunssfsi+0x38>
+ 5a8:	d1 f0       	breq	.+52     	; 0x5de <__fixunssfsi+0x46>
+ 5aa:	66 0f       	add	r22, r22
+ 5ac:	77 1f       	adc	r23, r23
+ 5ae:	88 1f       	adc	r24, r24
+ 5b0:	99 1f       	adc	r25, r25
+ 5b2:	1a f0       	brmi	.+6      	; 0x5ba <__fixunssfsi+0x22>
+ 5b4:	ba 95       	dec	r27
+ 5b6:	c9 f7       	brne	.-14     	; 0x5aa <__fixunssfsi+0x12>
+ 5b8:	12 c0       	rjmp	.+36     	; 0x5de <__fixunssfsi+0x46>
+ 5ba:	b1 30       	cpi	r27, 0x01	; 1
+ 5bc:	81 f0       	breq	.+32     	; 0x5de <__fixunssfsi+0x46>
+ 5be:	9f d0       	rcall	.+318    	; 0x6fe <__fp_zero>
+ 5c0:	b1 e0       	ldi	r27, 0x01	; 1
+ 5c2:	08 95       	ret
+ 5c4:	9c c0       	rjmp	.+312    	; 0x6fe <__fp_zero>
+ 5c6:	67 2f       	mov	r22, r23
+ 5c8:	78 2f       	mov	r23, r24
+ 5ca:	88 27       	eor	r24, r24
+ 5cc:	b8 5f       	subi	r27, 0xF8	; 248
+ 5ce:	39 f0       	breq	.+14     	; 0x5de <__fixunssfsi+0x46>
+ 5d0:	b9 3f       	cpi	r27, 0xF9	; 249
+ 5d2:	cc f3       	brlt	.-14     	; 0x5c6 <__fixunssfsi+0x2e>
+ 5d4:	86 95       	lsr	r24
+ 5d6:	77 95       	ror	r23
+ 5d8:	67 95       	ror	r22
+ 5da:	b3 95       	inc	r27
+ 5dc:	d9 f7       	brne	.-10     	; 0x5d4 <__fixunssfsi+0x3c>
+ 5de:	3e f4       	brtc	.+14     	; 0x5ee <__fixunssfsi+0x56>
+ 5e0:	90 95       	com	r25
+ 5e2:	80 95       	com	r24
+ 5e4:	70 95       	com	r23
+ 5e6:	61 95       	neg	r22
+ 5e8:	7f 4f       	sbci	r23, 0xFF	; 255
+ 5ea:	8f 4f       	sbci	r24, 0xFF	; 255
+ 5ec:	9f 4f       	sbci	r25, 0xFF	; 255
+ 5ee:	08 95       	ret
+
+000005f0 <__floatunsisf>:
+ 5f0:	e8 94       	clt
+ 5f2:	09 c0       	rjmp	.+18     	; 0x606 <__floatsisf+0x12>
+
+000005f4 <__floatsisf>:
+ 5f4:	97 fb       	bst	r25, 7
+ 5f6:	3e f4       	brtc	.+14     	; 0x606 <__floatsisf+0x12>
+ 5f8:	90 95       	com	r25
+ 5fa:	80 95       	com	r24
+ 5fc:	70 95       	com	r23
+ 5fe:	61 95       	neg	r22
+ 600:	7f 4f       	sbci	r23, 0xFF	; 255
+ 602:	8f 4f       	sbci	r24, 0xFF	; 255
+ 604:	9f 4f       	sbci	r25, 0xFF	; 255
+ 606:	99 23       	and	r25, r25
+ 608:	a9 f0       	breq	.+42     	; 0x634 <__floatsisf+0x40>
+ 60a:	f9 2f       	mov	r31, r25
+ 60c:	96 e9       	ldi	r25, 0x96	; 150
+ 60e:	bb 27       	eor	r27, r27
+ 610:	93 95       	inc	r25
+ 612:	f6 95       	lsr	r31
+ 614:	87 95       	ror	r24
+ 616:	77 95       	ror	r23
+ 618:	67 95       	ror	r22
+ 61a:	b7 95       	ror	r27
+ 61c:	f1 11       	cpse	r31, r1
+ 61e:	f8 cf       	rjmp	.-16     	; 0x610 <__floatsisf+0x1c>
+ 620:	fa f4       	brpl	.+62     	; 0x660 <__floatsisf+0x6c>
+ 622:	bb 0f       	add	r27, r27
+ 624:	11 f4       	brne	.+4      	; 0x62a <__floatsisf+0x36>
+ 626:	60 ff       	sbrs	r22, 0
+ 628:	1b c0       	rjmp	.+54     	; 0x660 <__floatsisf+0x6c>
+ 62a:	6f 5f       	subi	r22, 0xFF	; 255
+ 62c:	7f 4f       	sbci	r23, 0xFF	; 255
+ 62e:	8f 4f       	sbci	r24, 0xFF	; 255
+ 630:	9f 4f       	sbci	r25, 0xFF	; 255
+ 632:	16 c0       	rjmp	.+44     	; 0x660 <__floatsisf+0x6c>
+ 634:	88 23       	and	r24, r24
+ 636:	11 f0       	breq	.+4      	; 0x63c <__floatsisf+0x48>
+ 638:	96 e9       	ldi	r25, 0x96	; 150
+ 63a:	11 c0       	rjmp	.+34     	; 0x65e <__floatsisf+0x6a>
+ 63c:	77 23       	and	r23, r23
+ 63e:	21 f0       	breq	.+8      	; 0x648 <__floatsisf+0x54>
+ 640:	9e e8       	ldi	r25, 0x8E	; 142
+ 642:	87 2f       	mov	r24, r23
+ 644:	76 2f       	mov	r23, r22
+ 646:	05 c0       	rjmp	.+10     	; 0x652 <__floatsisf+0x5e>
+ 648:	66 23       	and	r22, r22
+ 64a:	71 f0       	breq	.+28     	; 0x668 <__floatsisf+0x74>
+ 64c:	96 e8       	ldi	r25, 0x86	; 134
+ 64e:	86 2f       	mov	r24, r22
+ 650:	70 e0       	ldi	r23, 0x00	; 0
+ 652:	60 e0       	ldi	r22, 0x00	; 0
+ 654:	2a f0       	brmi	.+10     	; 0x660 <__floatsisf+0x6c>
+ 656:	9a 95       	dec	r25
+ 658:	66 0f       	add	r22, r22
+ 65a:	77 1f       	adc	r23, r23
+ 65c:	88 1f       	adc	r24, r24
+ 65e:	da f7       	brpl	.-10     	; 0x656 <__floatsisf+0x62>
+ 660:	88 0f       	add	r24, r24
+ 662:	96 95       	lsr	r25
+ 664:	87 95       	ror	r24
+ 666:	97 f9       	bld	r25, 7
+ 668:	08 95       	ret
+
+0000066a <__fp_inf>:
+ 66a:	97 f9       	bld	r25, 7
+ 66c:	9f 67       	ori	r25, 0x7F	; 127
+ 66e:	80 e8       	ldi	r24, 0x80	; 128
+ 670:	70 e0       	ldi	r23, 0x00	; 0
+ 672:	60 e0       	ldi	r22, 0x00	; 0
+ 674:	08 95       	ret
+
+00000676 <__fp_nan>:
+ 676:	9f ef       	ldi	r25, 0xFF	; 255
+ 678:	80 ec       	ldi	r24, 0xC0	; 192
+ 67a:	08 95       	ret
+
+0000067c <__fp_pscA>:
+ 67c:	00 24       	eor	r0, r0
+ 67e:	0a 94       	dec	r0
+ 680:	16 16       	cp	r1, r22
+ 682:	17 06       	cpc	r1, r23
+ 684:	18 06       	cpc	r1, r24
+ 686:	09 06       	cpc	r0, r25
+ 688:	08 95       	ret
+
+0000068a <__fp_pscB>:
+ 68a:	00 24       	eor	r0, r0
+ 68c:	0a 94       	dec	r0
+ 68e:	12 16       	cp	r1, r18
+ 690:	13 06       	cpc	r1, r19
+ 692:	14 06       	cpc	r1, r20
+ 694:	05 06       	cpc	r0, r21
+ 696:	08 95       	ret
+
+00000698 <__fp_round>:
+ 698:	09 2e       	mov	r0, r25
+ 69a:	03 94       	inc	r0
+ 69c:	00 0c       	add	r0, r0
+ 69e:	11 f4       	brne	.+4      	; 0x6a4 <__fp_round+0xc>
+ 6a0:	88 23       	and	r24, r24
+ 6a2:	52 f0       	brmi	.+20     	; 0x6b8 <__fp_round+0x20>
+ 6a4:	bb 0f       	add	r27, r27
+ 6a6:	40 f4       	brcc	.+16     	; 0x6b8 <__fp_round+0x20>
+ 6a8:	bf 2b       	or	r27, r31
+ 6aa:	11 f4       	brne	.+4      	; 0x6b0 <__fp_round+0x18>
+ 6ac:	60 ff       	sbrs	r22, 0
+ 6ae:	04 c0       	rjmp	.+8      	; 0x6b8 <__fp_round+0x20>
+ 6b0:	6f 5f       	subi	r22, 0xFF	; 255
+ 6b2:	7f 4f       	sbci	r23, 0xFF	; 255
+ 6b4:	8f 4f       	sbci	r24, 0xFF	; 255
+ 6b6:	9f 4f       	sbci	r25, 0xFF	; 255
+ 6b8:	08 95       	ret
+
+000006ba <__fp_split3>:
+ 6ba:	57 fd       	sbrc	r21, 7
+ 6bc:	90 58       	subi	r25, 0x80	; 128
+ 6be:	44 0f       	add	r20, r20
+ 6c0:	55 1f       	adc	r21, r21
+ 6c2:	59 f0       	breq	.+22     	; 0x6da <__fp_splitA+0x10>
+ 6c4:	5f 3f       	cpi	r21, 0xFF	; 255
+ 6c6:	71 f0       	breq	.+28     	; 0x6e4 <__fp_splitA+0x1a>
+ 6c8:	47 95       	ror	r20
+
+000006ca <__fp_splitA>:
+ 6ca:	88 0f       	add	r24, r24
+ 6cc:	97 fb       	bst	r25, 7
+ 6ce:	99 1f       	adc	r25, r25
+ 6d0:	61 f0       	breq	.+24     	; 0x6ea <__fp_splitA+0x20>
+ 6d2:	9f 3f       	cpi	r25, 0xFF	; 255
+ 6d4:	79 f0       	breq	.+30     	; 0x6f4 <__fp_splitA+0x2a>
+ 6d6:	87 95       	ror	r24
+ 6d8:	08 95       	ret
+ 6da:	12 16       	cp	r1, r18
+ 6dc:	13 06       	cpc	r1, r19
+ 6de:	14 06       	cpc	r1, r20
+ 6e0:	55 1f       	adc	r21, r21
+ 6e2:	f2 cf       	rjmp	.-28     	; 0x6c8 <__fp_split3+0xe>
+ 6e4:	46 95       	lsr	r20
+ 6e6:	f1 df       	rcall	.-30     	; 0x6ca <__fp_splitA>
+ 6e8:	08 c0       	rjmp	.+16     	; 0x6fa <__fp_splitA+0x30>
+ 6ea:	16 16       	cp	r1, r22
+ 6ec:	17 06       	cpc	r1, r23
+ 6ee:	18 06       	cpc	r1, r24
+ 6f0:	99 1f       	adc	r25, r25
+ 6f2:	f1 cf       	rjmp	.-30     	; 0x6d6 <__fp_splitA+0xc>
+ 6f4:	86 95       	lsr	r24
+ 6f6:	71 05       	cpc	r23, r1
+ 6f8:	61 05       	cpc	r22, r1
+ 6fa:	08 94       	sec
+ 6fc:	08 95       	ret
+
+000006fe <__fp_zero>:
+ 6fe:	e8 94       	clt
+
+00000700 <__fp_szero>:
+ 700:	bb 27       	eor	r27, r27
+ 702:	66 27       	eor	r22, r22
+ 704:	77 27       	eor	r23, r23
+ 706:	cb 01       	movw	r24, r22
+ 708:	97 f9       	bld	r25, 7
+ 70a:	08 95       	ret
+
+0000070c <__mulsf3>:
+ 70c:	0b d0       	rcall	.+22     	; 0x724 <__mulsf3x>
+ 70e:	c4 cf       	rjmp	.-120    	; 0x698 <__fp_round>
+ 710:	b5 df       	rcall	.-150    	; 0x67c <__fp_pscA>
+ 712:	28 f0       	brcs	.+10     	; 0x71e <__mulsf3+0x12>
+ 714:	ba df       	rcall	.-140    	; 0x68a <__fp_pscB>
+ 716:	18 f0       	brcs	.+6      	; 0x71e <__mulsf3+0x12>
+ 718:	95 23       	and	r25, r21
+ 71a:	09 f0       	breq	.+2      	; 0x71e <__mulsf3+0x12>
+ 71c:	a6 cf       	rjmp	.-180    	; 0x66a <__fp_inf>
+ 71e:	ab cf       	rjmp	.-170    	; 0x676 <__fp_nan>
+ 720:	11 24       	eor	r1, r1
+ 722:	ee cf       	rjmp	.-36     	; 0x700 <__fp_szero>
+
+00000724 <__mulsf3x>:
+ 724:	ca df       	rcall	.-108    	; 0x6ba <__fp_split3>
+ 726:	a0 f3       	brcs	.-24     	; 0x710 <__mulsf3+0x4>
+
+00000728 <__mulsf3_pse>:
+ 728:	95 9f       	mul	r25, r21
+ 72a:	d1 f3       	breq	.-12     	; 0x720 <__mulsf3+0x14>
+ 72c:	95 0f       	add	r25, r21
+ 72e:	50 e0       	ldi	r21, 0x00	; 0
+ 730:	55 1f       	adc	r21, r21
+ 732:	62 9f       	mul	r22, r18
+ 734:	f0 01       	movw	r30, r0
+ 736:	72 9f       	mul	r23, r18
+ 738:	bb 27       	eor	r27, r27
+ 73a:	f0 0d       	add	r31, r0
+ 73c:	b1 1d       	adc	r27, r1
+ 73e:	63 9f       	mul	r22, r19
+ 740:	aa 27       	eor	r26, r26
+ 742:	f0 0d       	add	r31, r0
+ 744:	b1 1d       	adc	r27, r1
+ 746:	aa 1f       	adc	r26, r26
+ 748:	64 9f       	mul	r22, r20
+ 74a:	66 27       	eor	r22, r22
+ 74c:	b0 0d       	add	r27, r0
+ 74e:	a1 1d       	adc	r26, r1
+ 750:	66 1f       	adc	r22, r22
+ 752:	82 9f       	mul	r24, r18
+ 754:	22 27       	eor	r18, r18
+ 756:	b0 0d       	add	r27, r0
+ 758:	a1 1d       	adc	r26, r1
+ 75a:	62 1f       	adc	r22, r18
+ 75c:	73 9f       	mul	r23, r19
+ 75e:	b0 0d       	add	r27, r0
+ 760:	a1 1d       	adc	r26, r1
+ 762:	62 1f       	adc	r22, r18
+ 764:	83 9f       	mul	r24, r19
+ 766:	a0 0d       	add	r26, r0
+ 768:	61 1d       	adc	r22, r1
+ 76a:	22 1f       	adc	r18, r18
+ 76c:	74 9f       	mul	r23, r20
+ 76e:	33 27       	eor	r19, r19
+ 770:	a0 0d       	add	r26, r0
+ 772:	61 1d       	adc	r22, r1
+ 774:	23 1f       	adc	r18, r19
+ 776:	84 9f       	mul	r24, r20
+ 778:	60 0d       	add	r22, r0
+ 77a:	21 1d       	adc	r18, r1
+ 77c:	82 2f       	mov	r24, r18
+ 77e:	76 2f       	mov	r23, r22
+ 780:	6a 2f       	mov	r22, r26
+ 782:	11 24       	eor	r1, r1
+ 784:	9f 57       	subi	r25, 0x7F	; 127
+ 786:	50 40       	sbci	r21, 0x00	; 0
+ 788:	8a f0       	brmi	.+34     	; 0x7ac <__mulsf3_pse+0x84>
+ 78a:	e1 f0       	breq	.+56     	; 0x7c4 <__mulsf3_pse+0x9c>
+ 78c:	88 23       	and	r24, r24
+ 78e:	4a f0       	brmi	.+18     	; 0x7a2 <__mulsf3_pse+0x7a>
+ 790:	ee 0f       	add	r30, r30
+ 792:	ff 1f       	adc	r31, r31
+ 794:	bb 1f       	adc	r27, r27
+ 796:	66 1f       	adc	r22, r22
+ 798:	77 1f       	adc	r23, r23
+ 79a:	88 1f       	adc	r24, r24
+ 79c:	91 50       	subi	r25, 0x01	; 1
+ 79e:	50 40       	sbci	r21, 0x00	; 0
+ 7a0:	a9 f7       	brne	.-22     	; 0x78c <__mulsf3_pse+0x64>
+ 7a2:	9e 3f       	cpi	r25, 0xFE	; 254
+ 7a4:	51 05       	cpc	r21, r1
+ 7a6:	70 f0       	brcs	.+28     	; 0x7c4 <__mulsf3_pse+0x9c>
+ 7a8:	60 cf       	rjmp	.-320    	; 0x66a <__fp_inf>
+ 7aa:	aa cf       	rjmp	.-172    	; 0x700 <__fp_szero>
+ 7ac:	5f 3f       	cpi	r21, 0xFF	; 255
+ 7ae:	ec f3       	brlt	.-6      	; 0x7aa <__mulsf3_pse+0x82>
+ 7b0:	98 3e       	cpi	r25, 0xE8	; 232
+ 7b2:	dc f3       	brlt	.-10     	; 0x7aa <__mulsf3_pse+0x82>
+ 7b4:	86 95       	lsr	r24
+ 7b6:	77 95       	ror	r23
+ 7b8:	67 95       	ror	r22
+ 7ba:	b7 95       	ror	r27
+ 7bc:	f7 95       	ror	r31
+ 7be:	e7 95       	ror	r30
+ 7c0:	9f 5f       	subi	r25, 0xFF	; 255
+ 7c2:	c1 f7       	brne	.-16     	; 0x7b4 <__mulsf3_pse+0x8c>
+ 7c4:	fe 2b       	or	r31, r30
+ 7c6:	88 0f       	add	r24, r24
+ 7c8:	91 1d       	adc	r25, r1
+ 7ca:	96 95       	lsr	r25
+ 7cc:	87 95       	ror	r24
+ 7ce:	97 f9       	bld	r25, 7
+ 7d0:	08 95       	ret
+
+000007d2 <__itoa_ncheck>:
+ 7d2:	bb 27       	eor	r27, r27
+ 7d4:	4a 30       	cpi	r20, 0x0A	; 10
+ 7d6:	31 f4       	brne	.+12     	; 0x7e4 <__itoa_ncheck+0x12>
+ 7d8:	99 23       	and	r25, r25
+ 7da:	22 f4       	brpl	.+8      	; 0x7e4 <__itoa_ncheck+0x12>
+ 7dc:	bd e2       	ldi	r27, 0x2D	; 45
+ 7de:	90 95       	com	r25
+ 7e0:	81 95       	neg	r24
+ 7e2:	9f 4f       	sbci	r25, 0xFF	; 255
+ 7e4:	0c 94 f5 03 	jmp	0x7ea	; 0x7ea <__utoa_common>
+
+000007e8 <__utoa_ncheck>:
+ 7e8:	bb 27       	eor	r27, r27
+
+000007ea <__utoa_common>:
+ 7ea:	fb 01       	movw	r30, r22
+ 7ec:	55 27       	eor	r21, r21
+ 7ee:	aa 27       	eor	r26, r26
+ 7f0:	88 0f       	add	r24, r24
+ 7f2:	99 1f       	adc	r25, r25
+ 7f4:	aa 1f       	adc	r26, r26
+ 7f6:	a4 17       	cp	r26, r20
+ 7f8:	10 f0       	brcs	.+4      	; 0x7fe <__utoa_common+0x14>
+ 7fa:	a4 1b       	sub	r26, r20
+ 7fc:	83 95       	inc	r24
+ 7fe:	50 51       	subi	r21, 0x10	; 16
+ 800:	b9 f7       	brne	.-18     	; 0x7f0 <__utoa_common+0x6>
+ 802:	a0 5d       	subi	r26, 0xD0	; 208
+ 804:	aa 33       	cpi	r26, 0x3A	; 58
+ 806:	08 f0       	brcs	.+2      	; 0x80a <__utoa_common+0x20>
+ 808:	a9 5d       	subi	r26, 0xD9	; 217
+ 80a:	a1 93       	st	Z+, r26
+ 80c:	00 97       	sbiw	r24, 0x00	; 0
+ 80e:	79 f7       	brne	.-34     	; 0x7ee <__utoa_common+0x4>
+ 810:	b1 11       	cpse	r27, r1
+ 812:	b1 93       	st	Z+, r27
+ 814:	11 92       	st	Z+, r1
+ 816:	cb 01       	movw	r24, r22
+ 818:	0c 94 0e 04 	jmp	0x81c	; 0x81c <strrev>
+
+0000081c <strrev>:
+ 81c:	dc 01       	movw	r26, r24
+ 81e:	fc 01       	movw	r30, r24
+ 820:	67 2f       	mov	r22, r23
+ 822:	71 91       	ld	r23, Z+
+ 824:	77 23       	and	r23, r23
+ 826:	e1 f7       	brne	.-8      	; 0x820 <strrev+0x4>
+ 828:	32 97       	sbiw	r30, 0x02	; 2
+ 82a:	04 c0       	rjmp	.+8      	; 0x834 <strrev+0x18>
+ 82c:	7c 91       	ld	r23, X
+ 82e:	6d 93       	st	X+, r22
+ 830:	70 83       	st	Z, r23
+ 832:	62 91       	ld	r22, -Z
+ 834:	ae 17       	cp	r26, r30
+ 836:	bf 07       	cpc	r27, r31
+ 838:	c8 f3       	brcs	.-14     	; 0x82c <strrev+0x10>
+ 83a:	08 95       	ret
+
+0000083c <_exit>:
+ 83c:	f8 94       	cli
+
+0000083e <__stop_program>:
+ 83e:	ff cf       	rjmp	.-2      	; 0x83e <__stop_program>
